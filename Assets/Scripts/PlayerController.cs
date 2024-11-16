@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
 
     // Gravity Mode variables
     private bool isLowGravity = true;
-    public float lowGravityJumpForce = 7f;
-    public float highGravityJumpForce = 3f;
+    public float lowGravityJumpForce = 10f;
+    public float highGravityJumpForce = 7f;
 
     void Start()
     {
