@@ -6,11 +6,15 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     private bool isGrounded;
     private Rigidbody rb;
+    public Transform cam;
 
     // Gravity Mode variables
     private bool isLowGravity = true;
     public float lowGravityJumpForce = 10f;
     public float highGravityJumpForce = 7f;
+
+    // Sound Effect Fields
+    [SerializeField] private AudioClip walkSound;
 
     void Start()
     {
@@ -35,7 +39,18 @@ public class PlayerController : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        Vector3 cameraForward = cam.forward;
+        Vector3 cameraRight = cam.right;
+
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        Vector3 relativeForward = moveVertical * cameraForward;
+        Vector3 relativeRight = moveHorizontal * cameraRight;
+
+        Vector3 movementDirection = relativeForward + relativeRight;
+        
+        Vector3 movement = new Vector3(movementDirection.x, 0.0f, movementDirection.z);
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
     }
 
