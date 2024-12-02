@@ -52,6 +52,12 @@ public class PlayerController : MonoBehaviour
         
         Vector3 movement = new Vector3(movementDirection.x, 0.0f, movementDirection.z);
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
+        if (movementDirection != new Vector3(0, 0, 0))
+        {
+            Vector3 rotation = Quaternion.LookRotation(movementDirection).eulerAngles - new Vector3(0, 90, 0);
+            rb.MoveRotation(Quaternion.Euler(rotation));
+        }
+            
     }
 
     void Jump()
