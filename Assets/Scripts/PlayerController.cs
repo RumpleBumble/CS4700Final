@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = false;
     }
 
-    void ToggleGravityMode()
+    public void ToggleGravityMode()
     {
         isLowGravity = !isLowGravity;
         Debug.Log("Gravity Mode: " + (isLowGravity ? "Low Gravity" : "High Gravity"));

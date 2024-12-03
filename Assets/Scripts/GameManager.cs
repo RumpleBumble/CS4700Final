@@ -1,12 +1,14 @@
 using UnityEngine;
-using UnityEngine.UI; // For UI elements
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour 
 {
     public static GameManager Instance;
     public bool isLowGravity = true;
-
-    public Text gravityIndicator; // Reference to the UI Text element
+    public Text gravityIndicator;
+    public int currentLevel = 1;
+    public int totalLevels = 4;
 
     void Awake()
     {
@@ -30,7 +32,6 @@ public class GameManager : MonoBehaviour
     {
         isLowGravity = !isLowGravity;
         UpdateGravityIndicator();
-        Debug.Log("Gravity Mode: " + (isLowGravity ? "Low Gravity" : "High Gravity"));
     }
 
     void UpdateGravityIndicator()
@@ -38,6 +39,19 @@ public class GameManager : MonoBehaviour
         if (gravityIndicator != null)
         {
             gravityIndicator.text = "Gravity: " + (isLowGravity ? "Low" : "High");
+        }
+    }
+
+    public void NextLevel()
+    {
+        if (currentLevel < totalLevels)
+        {
+            currentLevel++;
+            SceneManager.LoadScene("Level" + currentLevel);
+        }
+        else
+        {
+            SceneManager.LoadScene("EndScene");
         }
     }
 }
