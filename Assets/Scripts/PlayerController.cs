@@ -46,10 +46,10 @@ public class PlayerController : MonoBehaviour
         Vector3 relativeRight = moveHorizontal * cameraRight;
 
         Vector3 movementDirection = relativeForward + relativeRight;
-
+        
         Vector3 movement = new Vector3(movementDirection.x, 0.0f, movementDirection.z);
         rb.MovePosition(transform.position + movement * speed * Time.deltaTime);
-
+        
         if (movementDirection != Vector3.zero)
         {
             Vector3 rotation = Quaternion.LookRotation(movementDirection).eulerAngles - new Vector3(0, 90, 0);
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     void Jump()
     {
-        float currentJumpForce = isLowGravity ? lowGravityJumpForce : highGravityJumpForce;
+        float currentJumpForce = GameManager.Instance.isLowGravity ? lowGravityJumpForce : highGravityJumpForce;
         rb.AddForce(Vector3.up * currentJumpForce, ForceMode.Impulse);
         isGrounded = false;
     }

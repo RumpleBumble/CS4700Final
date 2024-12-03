@@ -22,8 +22,8 @@ public class Switch : MonoBehaviour
             Debug.Log($"E pressed - Current gravity: {Physics.gravity.y}");
             SFXManager.instance.PlaySFXClip(lever, transform, 0.5f);
             GameManager.Instance.ToggleGravityMode();
-            float newGravity = GameManager.Instance.isLowGravity ? lowGravity : highGravity;
-            Physics.gravity = new Vector3(0, -newGravity, 0);
+            // float newGravity = GameManager.Instance.isLowGravity ? lowGravity : highGravity;
+            // Physics.gravity = new Vector3(0, -newGravity, 0);
             Debug.Log($"Gravity changed to: {Physics.gravity.y}");
             gravityText.text = $"Current gravity: {Physics.gravity.y}";
         }
