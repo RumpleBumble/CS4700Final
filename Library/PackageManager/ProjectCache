@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638687864248138959
+      ticks: 638689003891443053
     m_Hash: 2223295532
   m_LockFileStatus:
     m_FilePath: C:/Users/emile/Desktop/CS4700Final/Packages/packages-lock.json
@@ -13,8 +13,8 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638687864655767247
-    m_Hash: 1024595553
+      ticks: 638689003891443053
+    m_Hash: 16958972
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:

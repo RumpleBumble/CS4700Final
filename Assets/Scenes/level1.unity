@@ -2021,6 +2021,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7c43e8456311b4eab693c80d71f0e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextSceneName: level2
+--- !u!65 &919132147899773791
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147899773789}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2373542871420042314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2252,6 +2274,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5447806127552403148, guid: 59909f5b7cc76c64aa5d3d1ecb1298db, type: 3}
       insertIndex: -1
       addedObject: {fileID: 919132147899773790}
+    - targetCorrespondingSourceObject: {fileID: 5447806127552403148, guid: 59909f5b7cc76c64aa5d3d1ecb1298db, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 919132147899773791}
   m_SourcePrefab: {fileID: 100100000, guid: 59909f5b7cc76c64aa5d3d1ecb1298db, type: 3}
 --- !u!1001 &6221393549491977142
 PrefabInstance:
