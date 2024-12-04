@@ -13,7 +13,7 @@ public class Switch : MonoBehaviour
     public TMP_Text gravityText;
 
     [SerializeField] private AudioClip lever;
-
+    
     private void Update()
     {
 
@@ -22,6 +22,7 @@ public class Switch : MonoBehaviour
             Debug.Log($"E pressed - Current gravity: {Physics.gravity.y}");
             SFXManager.instance.PlaySFXClip(lever, transform, 0.5f);
             GameManager.Instance.ToggleGravityMode();
+            GetComponent<Animator>().SetTrigger("Flip");
             // float newGravity = GameManager.Instance.isLowGravity ? lowGravity : highGravity;
             // Physics.gravity = new Vector3(0, -newGravity, 0);
             Debug.Log($"Gravity changed to: {Physics.gravity.y}");

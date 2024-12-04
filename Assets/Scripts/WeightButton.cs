@@ -1,4 +1,6 @@
 // WeightButton.cs
+
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,19 +15,29 @@ public class WeightButton : MonoBehaviour
     private Animator buttonAnimator;
     public UnityEvent onPress;
     public UnityEvent onRelease;
+    public GameObject fillin; 
 
     void Start()
     {
-        setColor(color, gameObject);
+        setColor(color, fillin);
         buttonAnimator = GetComponent<Animator>();
+    }
+
+    private void Update()
+    {
+        if (isPressed && GameManager.Instance.isLowGravity)
+        {
+            ReleaseButton();
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (!isPressed && other.attachedRigidbody != null)
+        if (!isPressed && other.attachedRigidbody != null && other.CompareTag("Box"))
         {
-            float weight = other.attachedRigidbody.mass * -Physics.gravity.y;
-            if (weight >= weightThreshold)
+            // float weight = other.attachedRigidbody.mass * -Physics.gravity.y;
+            // if (weight >= weightThreshold)
+            if (!GameManager.Instance.isLowGravity)
             {
                 PressButton();
             }
@@ -46,7 +58,8 @@ public class WeightButton : MonoBehaviour
         buttonAnimator?.SetTrigger("Press");
         foreach (WalledDoor door in connectedDoors)
         {
-            door.gameObject.SetActive(false);
+            door.OpenDoor();
+            door.GetComponent<BoxCollider>().enabled = false;
         }
         onPress.Invoke();
     }
@@ -57,7 +70,8 @@ public class WeightButton : MonoBehaviour
         buttonAnimator?.SetTrigger("Release");
         foreach (WalledDoor door in connectedDoors)
         {
-            door.gameObject.SetActive(true);
+            door.CloseDoor();
+            door.GetComponent<BoxCollider>().enabled = true;
         }
         onRelease.Invoke();
     }
