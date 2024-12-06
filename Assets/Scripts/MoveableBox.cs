@@ -1,20 +1,34 @@
+/***************************************************************
+*file: MoveableBox.cs
+*author: Emiley Thai
+*class: CS 4700 – Game Development
+*assignment: Program 4
+*date last modified: 12/3/2024
+*
+*purpose: This manages being able to pick up and move the box
+*
+****************************************************************/
+
 using UnityEngine;
 
 public class MoveableBox : MonoBehaviour
 {
-    private GameObject heldObject;
+    private GameObject heldObject;       // The object being held
     private Collider heldObjectCollider; // Store reference to the held object's collider
-    public float radius = 0.5f;          // Reduced radius for more precise pickup
-    public float distance = 2f;
-    public float height = 1f;
-    public float pickupRange = 2f;
+    
+    // Parameters for object pick-up dimensions
+    private const float RADIUS = 0.5f;   // Reduced radius for more precise pickup
+    private const float DISTANCE = 2f;
+    private const float HEIGHT = 1f;
+    private const float PICKUP_RANGE = 2f;
 
+    //  Handles the pickup per frame
     private void Update()
     {
-        var t = transform;
-        var pressedF = Input.GetKeyDown(KeyCode.F);
+        var t = transform;                       // Position of held object
+        var pressedF = Input.GetKeyDown(KeyCode.F);  // Button for picking up
         
-        if (heldObject)
+        if (heldObject) // If the player is currently holding an object
         {
             // Handle dropping the object
             if (pressedF)
@@ -34,7 +48,7 @@ public class MoveableBox : MonoBehaviour
             }
 
             // Update held object position with identity rotation (no rotation)
-            Vector3 targetPosition = t.position + (t.forward * distance) + (t.up * height);
+            Vector3 targetPosition = t.position + (t.forward * DISTANCE) + (t.up * HEIGHT);
             heldObject.transform.position = targetPosition;
             heldObject.transform.rotation = Quaternion.identity;
         }
@@ -44,19 +58,20 @@ public class MoveableBox : MonoBehaviour
             Ray ray = new Ray(t.position + t.up, t.forward);
             RaycastHit[] hits = Physics.SphereCastAll(
                 ray.origin,
-                radius,
+                RADIUS,
                 ray.direction,
-                pickupRange
+                PICKUP_RANGE
             );
 
-            if (hits.Length > 0)
-            {
+            if (hits.Length > 0) // The ray hits an object
+            {   // Determines if the object is a box
                 var hitIndex = System.Array.FindIndex(hits, hit => 
                     hit.transform != null && 
                     hit.transform != transform &&
                     hit.transform.CompareTag("Box")
                 );
                 
+                // Now we set the held object to the box if it is one
                 if (hitIndex != -1 && hitIndex < hits.Length)
                 {
                     var hitTransform = hits[hitIndex].transform;
@@ -88,6 +103,9 @@ public class MoveableBox : MonoBehaviour
         }
     }
 
+    /**
+     * Removes a held object if we dropped it
+     */
     private void OnDisable()
     {
         if (heldObject != null)
@@ -110,9 +128,9 @@ public class MoveableBox : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Vector3 forward = transform.forward * pickupRange;
-        Gizmos.DrawWireSphere(transform.position + transform.up, radius);
+        Vector3 forward = transform.forward * PICKUP_RANGE;
+        Gizmos.DrawWireSphere(transform.position + transform.up, RADIUS);
         Gizmos.DrawLine(transform.position + transform.up, transform.position + transform.up + forward);
-        Gizmos.DrawWireSphere(transform.position + transform.up + forward, radius);
+        Gizmos.DrawWireSphere(transform.position + transform.up + forward, RADIUS);
     }
 }

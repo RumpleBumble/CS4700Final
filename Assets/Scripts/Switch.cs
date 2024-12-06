@@ -1,35 +1,49 @@
+/***************************************************************
+*file: Switch.cs
+*author: Emiley Thai
+*class: CS 4700 – Game Development
+*assignment: Program 4
+*date last modified: 12/3/2024
+*
+*purpose: This manages interactions with the switch
+*
+****************************************************************/
+
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class Switch : MonoBehaviour
 {
-    public float lowGravity = 4.9f;   
-    public float highGravity = 19.6f;
-    private bool playerInRange = false;
+    private bool playerInRange;                 // If the player is close enough to interact with
+    public Canvas canvas;                       // The UI the interaction prompt is written to
+    private Animator anim;                      // Animation for the switch
 
-    public Canvas canvas;
+    [SerializeField] private AudioClip lever;   // Sound effect for activating
 
-    public TMP_Text gravityText;
+    /**
+     * Initialization of range and animator
+     */
+    private void Start()
+    {
+        playerInRange = false;
+        anim = GetComponent<Animator>();
+    }
 
-    [SerializeField] private AudioClip lever;
-    
+    /**
+     * If the player is close enough, and hits the interact key, it will toggle gravity modes
+     */
     private void Update()
     {
-
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log($"E pressed - Current gravity: {Physics.gravity.y}");
             SFXManager.instance.PlaySFXClip(lever, transform, 0.5f);
             GameManager.Instance.ToggleGravityMode();
-            GetComponent<Animator>().SetTrigger("Flip");
-            // float newGravity = GameManager.Instance.isLowGravity ? lowGravity : highGravity;
-            // Physics.gravity = new Vector3(0, -newGravity, 0);
-            Debug.Log($"Gravity changed to: {Physics.gravity.y}");
-            gravityText.text = $"Current gravity: {Physics.gravity.y}";
+            anim.SetTrigger("Flip");
         }
     }
 
+    /**
+     * If the player is close, lets the switch be operated
+     */
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -40,6 +54,9 @@ public class Switch : MonoBehaviour
         }
     }
 
+    /**
+     * If the player is too far, it can't be operated
+     */
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
