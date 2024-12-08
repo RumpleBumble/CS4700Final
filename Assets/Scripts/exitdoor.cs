@@ -14,6 +14,7 @@ using UnityEngine.SceneManagement;
 
 public class ExitDoor : MonoBehaviour
 {
+    public bool nexLow; // If the next level starts with low gravity
     [SerializeField] private string nextSceneName; // Name of the next level
     
     // Moves to the next level upon player touching
@@ -21,6 +22,7 @@ public class ExitDoor : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameManager.Instance.isLowGravity = nexLow;
             SceneManager.LoadScene(nextSceneName);
         }
     }

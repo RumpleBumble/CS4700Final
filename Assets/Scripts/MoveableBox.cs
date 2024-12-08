@@ -48,7 +48,7 @@ public class MoveableBox : MonoBehaviour
             }
 
             // Update held object position with identity rotation (no rotation)
-            Vector3 targetPosition = t.position + (t.forward * DISTANCE) + (t.up * HEIGHT);
+            Vector3 targetPosition = t.position + ((t.forward)  * DISTANCE) + (t.up * HEIGHT);
             heldObject.transform.position = targetPosition;
             heldObject.transform.rotation = Quaternion.identity;
         }
